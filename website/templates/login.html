@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- {{url_for('static',filename='PRASANNA_R.jpeg')}} -->
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css.min.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+     <div class="wrapper">
+        <h1>Login</h1>
+        <form action="#" method="POST">
+            <input type="email" name="email" placeholder="Email">
+            <!-- <input type="text" placeholder="Name"> -->
+            <input type="password" name="pass" placeholder="Password">
+            <!-- <input type="password" placeholder="Re-Enterpassword"> -->
+
+            <button type="submit">Login</button>
+        </form>
+        <div class="member">
+            Not a member?<a href="/signup">Register here</a>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}  
+            {% if messages %}  
+                {% for category,message in messages %}  
+                    <p style="color:rgb(0,0,0)">{{ message }}</p>                      
+                {% endfor %}  
+            {% endif %}  
+        {% endwith %}
+     </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css.min.css">
+</head>
+<body>
+     <div class="wrapper">
+        <h1>Sign up</h1>
+        <form action="#" method="POST">
+            <input type="text" name="username" placeholder="Username">
+            <input type="text" name="name" placeholder="Name">
+            <input type="text" name="apno" placeholder="FlatNo">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password1" placeholder="Re-Enterpassword">
+            
+
+            <button type="submit">Signup</button>
+        </form>
+        <div class="member">
+            Already a member?<a href="/login">Login</a>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}  
+            {% if messages %}  
+                {% for category,message in messages %}  
+                    <p style="color:rgb(0,0,0)">{{ message }}</p>                      
+                {% endfor %}  
+            {% endif %}  
+        {% endwith %}
+        
+     </div>
+</body>
+</html>
