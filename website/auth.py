@@ -19,12 +19,14 @@ def login():
         email=request.form.get('email')
         password=request.form.get('pass')
         user=User.query.filter_by(email=email).first()
-
+        if email == "admin@admin.com":
+            if check_password_hash(user.password,password):
+                return redirect("/admin/user")
         if user:
             if check_password_hash(user.password,password):
                 login_user(user,remember=True)
-                # return redirect(url_for("views.tenent",email))
-                return render_template("tenent.html",user=user)
+                return redirect(url_for("auth.tenent"))
+                # return render_template("tenent.html",user=user)
 
             else:
                 flash("incorrect password, try again",category='error')
@@ -44,7 +46,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("logout successfully")
+    flash("logged out successfully")
     return redirect(url_for("auth.login"))
 
 
@@ -53,15 +55,28 @@ def logout():
 @login_required
 def tenent():
     print("hweri")
+    users=User.query.filter().all()
+    print(users[0].email)
+    
     if request.method=='POST':
-        print("prasanna")
+        # print("prasanna")
         note=request.form.get("notes")
+
+        #destination email
+        dest = request.form.get("dest")
+        print(dest)
+
+        #post message
         current_dateTime = datetime.now()
-        newnote=Note(user_id=current_user.id,data=note,date=current_dateTime)
+        newnote=Note(user_id=current_user.id,source=current_user.email,dest = dest,data=note,date=current_dateTime)
+        print(current_user.name)
         db.session.add(newnote)
         db.session.commit()
-        return render_template("tenent.html",user=current_user)
-    return render_template("tenent.html",user=current_user)
+        return render_template("tenent.html",user=current_user, email=users)
+        
+    #recieved messages by current user
+    curr_msg = Note.query.filter().all()
+    return render_template("tenent.html",user=current_user, email=users, curr_msg=curr_msg)
 
 
 
