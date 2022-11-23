@@ -1,0 +1,35 @@
+{% extends 'admin/master.html' %}
+
+{% block head_css %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='style_tenet.css')}}">
+{% endblock head_css %}
+
+{% block body %}
+<h1>Welcome Admin!</h1>
+<div class="p-5">
+    <h3 align="center">Post your Announcements</h3>
+</div>
+<form action="/announcements" method="POST">
+  <div class="text-center text-justify">
+    <h3 align="center">Enter your message here:</h3>
+  </div> 
+  <textarea name="notes" class="form-control"></textarea>
+  <div class="text-center text-justify">
+    <h3>To:</h3>
+  </div> 
+  <select name="dest" id="dest" class="form-control">
+    <option value="Announcements">Announcements</option>
+    {% for i in email %}
+    {% if i.email != "admin@gmail.com" %}
+      <option value="{{ i.email }}">{{ i.email }}</option>
+    {% endif %}  
+    {% endfor %}
+  </select>
+  <div align="center">
+    <br>
+    <button type="submit">Post Announcements</button>
+  </div>
+</form>
+<hr>
+{% endblock body %}

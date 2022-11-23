@@ -27,3 +27,8 @@ class Service(db.Model,UserMixin):
     occupation=db.Column(db.String(20))
     phno=db.Column(db.String(20),unique=True)
     email=db.Column(db.String(20),unique=True)
+
+class Announcement(db.Model,UserMixin):
+    a_id=db.Column(db.Integer,primary_key=True)
+    data=db.Column(db.String(10000))
+    date=db.Column(db.DateTime(timezone=True),default=func.now())

@@ -1,8 +1,9 @@
+import email
 from flask import Flask,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager,current_user
-from flask_admin import Admin
+from flask_admin import Admin,BaseView,expose
 from flask_admin.contrib.sqla import ModelView
 
 db=SQLAlchemy()
@@ -22,7 +23,7 @@ def create_app():
     app.register_blueprint(views,url_prefix="/")
     app.register_blueprint(auth,url_prefix="/")
 
-    from .models import User,Note,Service
+    from .models import User,Note,Service,Announcement
 
     with app.app_context():
         db.create_all()
@@ -41,10 +42,17 @@ def create_app():
         def is_visible(self):
             return True  
     
+    class Announcement(BaseView):
+        @expose('/')
+        def ann(self):
+            users = User.query.filter().all()
+            print(users[0].email)
+            return self.render("admin/announce.html",email=users)
 
     admin.add_view(ModelView(User,db.session))
     admin.add_view(ModelView(Note,db.session))
     admin.add_view(ModelView(Service,db.session))
+    admin.add_view(Announcement(name='Announcement',endpoint='announce'))
 
     @login_manager.user_loader
     def load_user(id):

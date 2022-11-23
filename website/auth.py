@@ -1,11 +1,12 @@
+from crypt import methods
 from flask import Blueprint,render_template,request,flash,redirect,url_for
-from .models import User
+from .models import Announcement, User
 from werkzeug.security import generate_password_hash,check_password_hash
 from .import db
 from flask_login import login_user,login_required,logout_user,current_user
 from flask_login import LoginManager
 from .import db
-from .models import User,Note,Service
+from .models import User,Note,Service,Announcement
 from datetime import datetime
 
 
@@ -86,6 +87,29 @@ def service():
     return render_template("service.html",list=services)
 
 
+@auth.route("/announcements",methods=['POST', 'GET'])
+def ann():
+    services = Announcement.query.filter().all()
+    if request.method == 'POST':
+        
+        note=request.form.get("notes")
+
+        #destination email
+        dest = request.form.get("dest")
+        print(dest)
+        if dest == "Announcements":
+            current_dateTime = datetime.now()
+            newnote=Announcement(data=note,date=current_dateTime)
+            # print(current_user.name)
+            db.session.add(newnote)
+            db.session.commit()
+        else:
+            newnote=Note(user_id=1,source="admin@gmail.com",dest = dest,data=note,date=current_dateTime)
+            # print(current_user.name)
+            db.session.add(newnote)
+            db.session.commit()
+        return redirect("admin/announce")
+    return render_template("announcements.html",list=services)
 
 
 @auth.route("/signup",methods=['POST','GET'])
@@ -118,6 +142,7 @@ def signup():
             db.session.commit()
             # login_user(user,remember=True)
             flash("Account Created!!",category="success")
+            return redirect("/login")
         #return redirect(url_for('views.home'))
             # return redirect(url_for('auth.login'))
 
