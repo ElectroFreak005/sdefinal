@@ -1,7 +1,7 @@
 from flask import Blueprint,render_template,request,redirect
 from flask_login import login_user,login_required,logout_user,current_user
 from .import db
-from .models import User,Note
+from .models import User,Note,Service
 from datetime import datetime
 
 views=Blueprint('views',__name__)

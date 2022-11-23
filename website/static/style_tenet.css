@@ -1,6 +1,6 @@
 body{
     background: rgb(9, 194, 223);
-    background: linear-gradient(90deg, rgb(48, 42, 167) 3%, rgba(69, 197, 122, 0.967) 35%, rgb(65, 154, 172) 100%);
+    background: linear-gradient(90deg, rgb(83, 78, 170) 3%, rgba(85, 199, 132, 0.967) 35%, rgb(65, 154, 172) 100%);
 }
 
 .form-control{
@@ -13,6 +13,8 @@ body{
 table{
     border: 1px solid;
     border-color: black;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 tr,td{

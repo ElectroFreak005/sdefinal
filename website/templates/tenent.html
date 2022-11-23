@@ -14,7 +14,9 @@
           <!-- Links -->
           <!-- <li class="navbar-brand">Swastika Appartments</li> -->
           <ul class="navbar-nav ml-auto">          
-    
+            <li class="nav-item">
+              <a class="nav-link" href="/service">service_providers</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="/logout">Logout</a>
             </li>
@@ -44,9 +46,9 @@
       <select name="dest" id="dest" class="form-control">
         <option value="admin">admin</option>
         {% for i in email %}
-          <!-- {% if i.id != user.id %} -->
+          {% if i.id != user.id %}
           <option value="{{ i.email }}">{{ i.email }}</option>
-          <!-- {% endif %} -->
+          {% endif %}
         {% endfor %}
       </select>
       <div align="center">
@@ -69,12 +71,14 @@
               <th>Time sent</th>
             </tr>
             {% for i in curr_msg %}
+              {% if i.soruce == user.email or i.dest == user.email %}
               <tr>
                 <td>{{ i.source }}</td>
                 <td>{{ i.dest }}</td>
                 <td>{{ i.data }}</td>
                 <td>{{ i.date }}</td>
               </tr>
+              {% endif %}
             {% endfor %}
           </table>
           <br>

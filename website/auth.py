@@ -5,7 +5,7 @@ from .import db
 from flask_login import login_user,login_required,logout_user,current_user
 from flask_login import LoginManager
 from .import db
-from .models import User,Note
+from .models import User,Note,Service
 from datetime import datetime
 
 
@@ -19,9 +19,9 @@ def login():
         email=request.form.get('email')
         password=request.form.get('pass')
         user=User.query.filter_by(email=email).first()
-        if email == "admin@admin.com":
+        if email == "admin@gmail.com":
             if check_password_hash(user.password,password):
-                return redirect("/admin/user")
+                return redirect("/admin")
         if user:
             if check_password_hash(user.password,password):
                 login_user(user,remember=True)
@@ -54,9 +54,9 @@ def logout():
 @auth.route("/tenent",methods=['POST','GET'])
 @login_required
 def tenent():
-    print("hweri")
+    # print("hweri")
     users=User.query.filter().all()
-    print(users[0].email)
+    # print(users[0].email)
     
     if request.method=='POST':
         # print("prasanna")
@@ -77,6 +77,14 @@ def tenent():
     #recieved messages by current user
     curr_msg = Note.query.filter().all()
     return render_template("tenent.html",user=current_user, email=users, curr_msg=curr_msg)
+
+
+@auth.route("/service")
+@login_required
+def service():
+    services = Service.query.filter().all()
+    return render_template("service.html",list=services)
+
 
 
 

@@ -22,7 +22,7 @@ def create_app():
     app.register_blueprint(views,url_prefix="/")
     app.register_blueprint(auth,url_prefix="/")
 
-    from .models import User,Note
+    from .models import User,Note,Service
 
     with app.app_context():
         db.create_all()
@@ -42,8 +42,9 @@ def create_app():
             return True  
     
 
-    admin.add_view(myModelView(User,db.session))
-    admin.add_view(myModelView(Note,db.session))
+    admin.add_view(ModelView(User,db.session))
+    admin.add_view(ModelView(Note,db.session))
+    admin.add_view(ModelView(Service,db.session))
 
     @login_manager.user_loader
     def load_user(id):

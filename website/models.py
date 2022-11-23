@@ -20,3 +20,10 @@ class User(db.Model,UserMixin):
     username=db.Column(db.String(100))
     apno=db.Column(db.String(10))
     notes=db.relationship('Note')
+
+class Service(db.Model,UserMixin):
+    id=db.Column(db.Integer,primary_key=True)
+    name=db.Column(db.String(20),unique=True)
+    occupation=db.Column(db.String(20))
+    phno=db.Column(db.String(20),unique=True)
+    email=db.Column(db.String(20),unique=True)
