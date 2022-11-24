@@ -29,7 +29,8 @@
       <br><br>
       <h1 style="text-align: center">Acquainted Service Providers For your Apartment</h1>
       <div>
-        <table style="width:100%">
+        <table class="table">
+          <thead class="table-dark">
             <tr>
               <th>Id</th>
               <th>Name</th>
@@ -37,6 +38,8 @@
               <th>Phone Number</th>
               <th>Email</th>
             </tr>
+          </thead>
+          <tbody>
             {% for i in list %}
             <tr>
             <td>{{ i.id }}</td>
@@ -45,6 +48,7 @@
             <td>{{ i.phno }}</td>
             <td>{{ i.email }}</td>
             </tr>
+            </tbody>
         {% endfor %}
         </table>
     </div>

@@ -12,7 +12,7 @@
 
         <div class="container-fluid">
           <!-- Links -->
-          <li class="navbar-brand" style="color: white;">Swastika Appartments</li>
+          <li class="navbar-brand" style="color: white;">Swastika Apartments</li>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link" href="/announcements">Announcements</a>
@@ -38,6 +38,7 @@
     <div class="p-5">
         <h3 align="center">Post your Queries</h3>
     </div>
+
     <form action="/tenent" method="POST">
       <div class="text-center text-justify">
         <h3>Enter your message here:</h3>
@@ -46,6 +47,7 @@
       <div class="text-center text-justify">
         <h3>To:</h3>
       </div> 
+      
       <select name="dest" id="dest" class="form-control">
         {% for i in email %}
           {% if i.id != user.id %}
@@ -55,7 +57,7 @@
       </select>
       <div align="center">
         <br>
-        <button type="submit">Post Query</button>
+        <button type="submit" class="btn btn-info">Post Query</button>
       </div>
     </form>
     <hr>
@@ -65,27 +67,35 @@
       <form action="/tenent" method="GET">
         <div align="center">
           <br>
-          <table style="width:100%">
+          <!-- <table style="width:100%"> -->
+            <table class="table">
+              <thead class="table-dark">
             <tr>
-              <th>From</th>
-              <th>To</th>
-              <th>Message</th>
-              <th>Time sent</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Message</th>
+              <th scope="col">Time sent</th>
+      
             </tr>
+            </thead>
+            <tbody>
             {% for i in curr_msg %}
               {% if i.source == user.email or i.dest == user.email %}
               <tr>
+                <!-- <th scope="row"></th> -->
                 <td>{{ i.source }}</td>
                 <td>{{ i.dest }}</td>
                 <td>{{ i.data }}</td>
                 <td>{{ i.date }}</td>
               </tr>
+              </tbody>
               {% endif %}
             {% endfor %}
           </table>
           <br>
           <br>
-          <button type="submit">View Messages</button>
+          <!-- <button type="submit">View Messages</button> -->
+          <button type="submit" class="btn btn-info">View Messages</button>
         </div>
       </form>
       

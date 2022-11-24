@@ -29,18 +29,22 @@
       <br><br>
       <h1 style="text-align: center">Announcements From Admin</h1>
       <div>
-        <table style="width:100%">
+        <table class="table">
+          <thead class="table-dark">
             <tr>
               <th>Id</th>
               <th>Message</th>
               <th>Date and Time</th>
             </tr>
+            </thead>
+            <tbody>
             {% for i in list %}
             <tr>
             <td>{{ i.a_id }}</td>
             <td>{{ i.data }}</td>
             <td>{{ i.date }}</td>
             </tr>
+            </tbody>
         {% endfor %}
         </table>
     </div>
