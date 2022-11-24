@@ -1,4 +1,4 @@
-from crypt import methods
+import bcrypt 
 from flask import Blueprint,render_template,request,flash,redirect,url_for
 from .models import Announcement, User
 from werkzeug.security import generate_password_hash,check_password_hash

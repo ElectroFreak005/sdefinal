@@ -7,6 +7,10 @@
     color:aliceblue;
 }
 body{
-background: rgb(9, 194, 223);
-background: linear-gradient(90deg, rgb(48, 42, 167) 3%, rgba(69, 197, 122, 0.967) 35%, rgb(65, 154, 172) 100%);
+/* background: rgb(9, 194, 223);
+background: linear-gradient(90deg, rgb(48, 42, 167) 3%, rgba(69, 197, 122, 0.967) 35%, rgb(65, 154, 172) 100%); */
+background-image: url('apartment2.jpg');
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: 100% 100%;
 }
