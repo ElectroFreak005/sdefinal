@@ -6,7 +6,8 @@
     font-family: "Poppins",sans-serif;
 }
 body{
-    background-color:#dfe9f5;
+    /* background-color:#dfe9f5; */
+    background-image: url("bg-1.jpg");
 }
 .wrapper{
     width:330px;

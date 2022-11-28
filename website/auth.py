@@ -66,6 +66,8 @@ def tenent():
 
         #destination email
         dest = request.form.get("dest")
+        img_file = request.form.get("img")
+        print(img_file)
         print(dest)
 
         #post message
@@ -78,6 +80,7 @@ def tenent():
         
     #recieved messages by current user
     curr_msg = Note.query.filter().all()
+    # print(session["username"])
     return render_template("tenent.html",user=current_user, email=users, curr_msg=curr_msg)
 
 
