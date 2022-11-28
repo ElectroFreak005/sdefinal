@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="{{url_for('static',filename='style_tenet.css')}}">
     <title>Portal</title>
 </head>
-<body>
+<body >
     <nav class="navbar navbar-expand-sm bg-dark">
 
         <div class="container-fluid">
           <!-- Links -->
-          <li class="navbar-brand" style="color: white;">Swastika Appartments</li>
-          <ul class="navbar-nav ml-auto">          
+          <li class="navbar-brand" style="color: white;">Swastika Apartments</li>
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/tenent">Home</a>
+              <a class="nav-link" href="/announce">Announcements</a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link" href="/service">service_providers</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/logout">Logout</a>
@@ -26,29 +29,9 @@
           </ul>
         </div>
       </nav>
-      <br><br>
-      <h1 style="text-align: center">Acquainted Service Providers For your Apartment</h1>
-      <div>
-        <table class="table">
-          <thead class="table-dark">
-            <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Occupation</th>
-              <th>Phone Number</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for i in list %}
-            <tr>
-            <td>{{ i.id }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.occupation }}</td>
-            <td>{{ i.phno }}</td>
-            <td>{{ i.email }}</td>
-            </tr>
-            </tbody>
-        {% endfor %}
-        </table>
-    </div>
+      <div style=" margin:2vw auto 2vw auto; background-color: rgb(185, 185, 197); padding: 2vw 2vw 2vw 2vw; width: fit-content; height: auto; width: 80%; border-radius: 20px;">  
+        <div class="text-center text-justify" >
+            <div style="font-size:2.5rem; ;">Welcome Admin!</div>
+        <hr>
+        </div>
+      </div>
