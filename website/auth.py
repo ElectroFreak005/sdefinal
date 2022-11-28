@@ -22,7 +22,8 @@ def login():
         user=User.query.filter_by(email=email).first()
         if email == "admin@gmail.com":
             if check_password_hash(user.password,password):
-                return redirect("/admin")
+                login_user(user,remember=True)
+                return redirect(url_for("auth.admin"))
         if user:
             if check_password_hash(user.password,password):
                 login_user(user,remember=True)
@@ -148,3 +149,9 @@ def signup():
 
        
     return render_template("signup.html",user=current_user)
+
+@auth.route("/admin")
+@login_required
+def admin():
+    # services = Service.query.filter().all()
+    return render_template("admin.html")
