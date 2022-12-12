@@ -32,3 +32,11 @@ class Announcement(db.Model,UserMixin):
     a_id=db.Column(db.Integer,primary_key=True)
     data=db.Column(db.String(10000))
     date=db.Column(db.DateTime(timezone=True),default=func.now())
+
+class To_do(db.Model,UserMixin):
+    user_id = db.Column(db.Integer,primary_key=True)
+    email = db.Column(db.String(20),unique=True)
+    rent=db.Column(db.Boolean,default=False,nullable=False)
+    main=db.Column(db.Boolean,default=False,nullable=False)
+    dr=db.Column(db.Boolean,default=False,nullable=False)
+    eb=db.Column(db.Boolean,default=False,nullable=False)

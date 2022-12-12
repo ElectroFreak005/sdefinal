@@ -1,0 +1,41 @@
+{% extends 'admin/master.html' %}
+
+{% block head_css %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='style_tenet.css')}}">
+{% endblock head_css %}
+
+{% block body %}
+<div class="p-5">
+    <h3 align="center">Change status of task for any tenent.</h3>
+</div>
+<form action="/to-do" method="POST">
+
+    <div class="p-5">
+        <h4 align="center">Select the email of the tenent</h4>
+    </div>
+  <select name="email" id="dest" class="form-control">
+    {% for i in email %}
+    {% if i.email != "admin@gmail.com" %}
+      <option value="{{ i.email }}">{{ i.email }}</option>
+    {% endif %}  
+    {% endfor %}
+  </select>
+  <div align="center">
+    <input type="checkbox" id = "rent" name="rent" value="True" >
+    <label for="rent">Rent</label>
+    <input type="checkbox" id= "main" name="main" value="True">
+    <label for="main">Maintenance</label>
+    <input type="checkbox" id="dr" name="dr" value="True">
+    <label for="dr">Dustbin Replacement</label>
+    <input type="checkbox" id="eb" name="eb" value="True">
+    <label for="eb">Electric Bill</label>
+  </div>
+  <div align="center">
+    <br>
+    <button type="submit" class="btn btn-info">Change Status</button>
+    <!-- <button type="button" class="btn btn-info">Info</button> -->
+  </div>
+</form>
+<hr>
+{% endblock body %}

@@ -1,0 +1,58 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static',filename='style_tenet.css')}}">
+    <title>Portal</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark">
+
+        <div class="container-fluid">
+          <!-- Links -->
+          <li class="navbar-brand" style="color: white;">Swastika Appartments</li>
+          <ul class="navbar-nav ml-auto">          
+            <li class="nav-item">
+                <a class="nav-link" href="/tenent">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="#">Link 3</a> -->
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <br><br>
+      <h1 style="text-align: center">List of Incomplete Tasks</h1>
+      <div>
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>Task</th>
+              <th>Completed/Incompleted</th>            
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td>rent</td>
+                <td>{{ val.rent }}</td>
+            </tr>
+            <tr>
+                <td>Maintenance</td>
+                <td>{{ val.main }}</td>
+            </tr>
+            <tr>
+                <td>Dustbin Replacement</td>
+                <td>{{ val.dr }}</td>
+            </tr>
+            <tr>
+                <td>Electric bill payment</td>
+                <td>{{ val.eb }}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>

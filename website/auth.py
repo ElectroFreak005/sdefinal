@@ -6,7 +6,7 @@ from .import db
 from flask_login import login_user,login_required,logout_user,current_user
 from flask_login import LoginManager
 from .import db
-from .models import User,Note,Service,Announcement
+from .models import User,Note,Service,Announcement,To_do
 from datetime import datetime
 
 
@@ -34,6 +34,8 @@ def login():
                 flash("incorrect password, try again",category='error')
         else:
             flash("email does not exist ",category='error')
+    # n = To_do.query.filter_by(user_id=3).first()
+    # print(n.rent)
     return render_template("login.html",user=current_user)
 
 
@@ -143,6 +145,9 @@ def signup():
        else:
             new_user=User(email=email,password=generate_password_hash(password,method='sha256'),name=name,apno=apno,username=username)
             db.session.add(new_user)
+            rent = False
+            new_list = To_do(email=email, rent = rent,main = rent,dr = rent, eb = rent)
+            db.session.add(new_list)
             db.session.commit()
             # login_user(user,remember=True)
             flash("Account Created!!",category="success")
@@ -158,3 +163,52 @@ def signup():
 def admin():
     # services = Service.query.filter().all()
     return render_template("admin.html")
+
+@auth.route("/todo")
+def to_do():
+    curr_user = current_user.id
+    curr_email = current_user.email
+    new = To_do.query.filter_by(email = curr_email).first()
+    print(curr_user)
+    print(new.user_id)
+    return render_template("to_do.html",val=new)
+
+@auth.route("/to-do",methods=["POST","GET"])
+def to():
+    if request.method == "POST":
+        email = request.form.get("email")
+        rent = request.form.get("rent")
+        if rent == 'True':
+            rent = True
+        else:
+            rent = False
+        main = request.form.get("main")
+        if main == 'True':
+            main = True
+        else:
+            main = False
+        dr = request.form.get("dr")
+        if dr == 'True':
+            dr = True
+        else:
+            dr = False
+        eb = request.form.get("eb")
+        if eb == 'True':
+            eb = True
+        else:
+            eb = False
+        print("email",email)
+        print("email",rent)
+        print("email",main)
+        print("email",dr)
+        print("email",eb)
+        # new_list = To_do(email=email, rent = rent,main = main,dr = dr, eb = eb)
+        
+        # db.session.add(new_list)
+        entry = To_do.query.filter_by(email=email).first()
+        entry.rent = rent
+        entry.main = main
+        entry.dr = dr
+        entry.eb = eb
+        db.session.commit()
+        return "Post request"

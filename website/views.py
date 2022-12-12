@@ -1,13 +1,18 @@
 from flask import Blueprint,render_template,request,redirect
 from flask_login import login_user,login_required,logout_user,current_user
 from .import db
-from .models import User,Note,Service
+from .models import User,Note,Service,To_do
 from datetime import datetime
 
 views=Blueprint('views',__name__)
 
 @views.route("/")
 def home():
+    # id = 1    
+    # rent = True
+    # new_list = To_do(user_id = id, rent = True)
+    # db.session.add(new_list)
+    # db.session.commit()
     return render_template("index.html")
 
 

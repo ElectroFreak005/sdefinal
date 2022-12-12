@@ -23,7 +23,7 @@ def create_app():
     app.register_blueprint(views,url_prefix="/")
     app.register_blueprint(auth,url_prefix="/")
 
-    from .models import User,Note,Service,Announcement
+    from .models import User,Note,Service,Announcement,To_do
 
     with app.app_context():
         db.create_all()
@@ -48,11 +48,20 @@ def create_app():
             users = User.query.filter().all()
             print(users[0].email)
             return self.render("admin/announce.html",email=users)
+    
+    class todo(BaseView):
+        @expose('/')
+        def to(self):
+            todo = To_do.query.filter().all()
+            print(todo[0].email)
+            return self.render("admin/todo.html",email=todo)
 
     admin.add_view(ModelView(User,db.session))
-    admin.add_view(ModelView(Note,db.session))
+    # admin.add_view(ModelView(Note,db.session))
     admin.add_view(ModelView(Service,db.session))
     admin.add_view(Announcement(name='Announcement',endpoint='announce'))
+    admin.add_view(todo(name='todo',endpoint='todo'))
+    admin.add_view(ModelView(To_do,db.session))
 
     @login_manager.user_loader
     def load_user(id):
