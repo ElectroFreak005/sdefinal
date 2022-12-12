@@ -43,7 +43,7 @@
         <h3 align="center" style="font-weight:bolder">Post your Queries</h3>
     </div>
 
-    <form action="/tenent" method="POST" style="display:flex; margin:auto;flex-direction:column; width:fit-content; background-color:rgb(165, 165, 199); padding: 5vw 5vw 5vw 5vw; border-radius: 15px;">
+    <form action="/tenent" method="POST" enctype="multipart/form-data" style="display:flex; margin:auto;flex-direction:column; width:fit-content; background-color:rgb(165, 165, 199); padding: 5vw 5vw 5vw 5vw; border-radius: 15px;">
       <div class="text-center text-justify" >
         <h3>Enter your message here:</h3>
       </div> 
@@ -85,6 +85,7 @@
               <th scope="col">From</th>
               <th scope="col">To</th>
               <th scope="col">Message</th>
+              <th scope="col">Filename</th>
               <th scope="col">Time sent</th>
       
             </tr>
@@ -97,6 +98,7 @@
                 <td>{{ i.source }}</td>
                 <td>{{ i.dest }}</td>
                 <td>{{ i.data }}</td>
+                <td><a href="/download/{{ i.id }}">{{ i.filename }}</a></td>
                 <td>{{ i.date }}</td>
               </tr>
               </tbody>

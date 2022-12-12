@@ -1,5 +1,6 @@
 import bcrypt 
-from flask import Blueprint,render_template,request,flash,redirect,url_for
+from io import BytesIO
+from flask import Blueprint,render_template,request,flash,redirect,url_for,send_file
 from .models import Announcement, User
 from werkzeug.security import generate_password_hash,check_password_hash
 from .import db
@@ -8,8 +9,13 @@ from flask_login import LoginManager
 from .import db
 from .models import User,Note,Service,Announcement,To_do
 from datetime import datetime
+import smtplib
+import ssl
+from email.message import EmailMessage
 
-
+email_sender = 'swathika.appartments@gmail.com'
+email_password = 'oppboasaputtehar'
+email_receiver = ''
 
 
 auth=Blueprint('auth',__name__)
@@ -21,9 +27,9 @@ def login():
         password=request.form.get('pass')
         user=User.query.filter_by(email=email).first()
         if email == "admin@gmail.com":
-            if check_password_hash(user.password,password):
-                login_user(user,remember=True)
-                return redirect(url_for("auth.admin"))
+            if password == "123456789":
+                # login_user(user,remember=True)
+                return redirect("admin")
         if user:
             if check_password_hash(user.password,password):
                 login_user(user,remember=True)
@@ -65,7 +71,9 @@ def tenent():
     if request.method=='POST':
         # print("prasanna")
         note=request.form.get("notes")
-
+        file=request.files['img']
+        fn=file.filename
+        print(file)
         #destination email
         dest = request.form.get("dest")
         img_file = request.form.get("img")
@@ -74,7 +82,24 @@ def tenent():
 
         #post message
         current_dateTime = datetime.now()
-        newnote=Note(user_id=current_user.id,source=current_user.email,dest = dest,data=note,date=current_dateTime)
+
+        #email-sending-section
+        subject = 'New message recieved!'
+        body = f""" From : {current_user.email}
+        Name: {current_user.name}
+        Message : {note}"""
+        email_receiver = str(dest)
+        em = EmailMessage()
+        em['From'] = email_sender
+        em['To'] = email_receiver
+        em['Subject'] = subject
+        em.set_content(body)
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+            smtp.login(email_sender, email_password)
+            smtp.sendmail(email_sender, email_receiver, em.as_string())
+
+        newnote=Note(user_id=current_user.id,source=current_user.email,dest = dest,data=note,filename=fn,raw_data=file.read(),date=current_dateTime)
         print(current_user.name)
         db.session.add(newnote)
         db.session.commit()
@@ -158,11 +183,10 @@ def signup():
        
     return render_template("signup.html",user=current_user)
 
-@auth.route("/admin")
-@login_required
-def admin():
-    # services = Service.query.filter().all()
-    return render_template("admin.html")
+# @auth.route("/admin-login")
+# def admin():
+#     # services = Service.query.filter().all()
+#     return render_template("login.html")
 
 @auth.route("/todo")
 def to_do():
@@ -212,3 +236,10 @@ def to():
         entry.eb = eb
         db.session.commit()
         return "Post request"
+
+@auth.route("/download/<upload_id>")
+def download(upload_id):
+    fc = Note.query.filter_by(id=upload_id).first()
+    print(fc.filename)
+    return send_file(BytesIO(fc.raw_data),download_name = fc.filename, as_attachment=True)
+    # print(upload_id)

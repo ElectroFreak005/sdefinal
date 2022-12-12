@@ -61,7 +61,7 @@ def create_app():
     admin.add_view(ModelView(Service,db.session))
     admin.add_view(Announcement(name='Announcement',endpoint='announce'))
     admin.add_view(todo(name='todo',endpoint='todo'))
-    admin.add_view(ModelView(To_do,db.session))
+    # admin.add_view(ModelView(To_do,db.session))
 
     @login_manager.user_loader
     def load_user(id):

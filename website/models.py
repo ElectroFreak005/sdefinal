@@ -8,6 +8,8 @@ class Note(db.Model):
     source=db.Column(db.String(100))
     dest=db.Column(db.String(100))
     data=db.Column(db.String(10000))
+    filename=db.Column(db.String(20))
+    raw_data=db.Column(db.LargeBinary)
     date=db.Column(db.DateTime(timezone=True),default=func.now())
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
 
